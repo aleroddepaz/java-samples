@@ -14,10 +14,10 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
+		<maven.tomcat.path>/</maven.tomcat.path>
 	</properties>
 
 	<dependencies>
-
 		<!-- Servlet API: javax.servlet classes -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -34,7 +34,7 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- JSTL 1.2 Reference Implementation -->
+		<!-- JSTL 1.2 API + Reference Implementation -->
 		<dependency>
 			<groupId>org.glassfish.web</groupId>
 			<artifactId>jstl-impl</artifactId>
@@ -52,7 +52,6 @@
 			</exclusions>
 		</dependency>
 
-
 		<dependency>
 			<groupId>org.jboss.weld.servlet</groupId>
 			<artifactId>weld-servlet-core</artifactId>
@@ -65,7 +64,6 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
 	</dependencies>
 
 	<build>
@@ -74,19 +72,6 @@
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<version>2.2</version>
-				<configuration>
-					<path>/</path>
-				</configuration>
-				<dependencies>
-					<!-- WARNING: Tomcat does not include the JSTL API!! -->
-					<!-- The problem with `javax.servlet.jsp.jstl:jstl-api:1.2` is that 
-						you need to exclude `servlet-api` and `jsp-api` manually -->
-					<dependency>
-						<groupId>jstl</groupId>
-						<artifactId>jstl</artifactId>
-						<version>1.2</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 
 			<plugin>
