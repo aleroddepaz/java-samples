@@ -3,12 +3,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.arp.example</groupId>
-	<artifactId>tomcat-webapp</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>servlet-cdi</artifactId>
+	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>Tomcat Webapp</name>
-	<description>Sample webapp with Tomcat 7 + JSTL + CDI (Weld)</description>
+	<name>Servlet and CDI example</name>
+	<description>Sample webapp with Servlet 3.0 + JSTL + CDI (Weld)</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
