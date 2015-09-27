@@ -74,6 +74,9 @@
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<version>2.2</version>
+				<configuration>
+					<path>/</path>
+				</configuration>
 				<dependencies>
 					<!-- WARNING: Tomcat does not include the JSTL API!! -->
 					<!-- The problem with `javax.servlet.jsp.jstl:jstl-api:1.2` is that 
