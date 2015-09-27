@@ -6,7 +6,7 @@
 	<artifactId>tomcat-webapp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	
+
 	<name>Tomcat Webapp</name>
 	<description>Sample webapp with Tomcat 7 + JSTL + CDI (Weld)</description>
 
@@ -84,6 +84,12 @@
 						<version>1.2</version>
 					</dependency>
 				</dependencies>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.2.13.v20150730</version>
 			</plugin>
 		</plugins>
 	</build>

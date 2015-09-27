@@ -1,5 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <Context>
+	<!-- Bind BeanManager to JNDI -->
+	<!-- See http://docs.jboss.org/weld/reference/latest/en-US/html/environments.html#_tomcat -->
 	<Resource name="BeanManager" auth="Container"
 		type="javax.enterprise.inject.spi.BeanManager" factory="org.jboss.weld.resources.ManagerObjectFactory" />
 </Context>
