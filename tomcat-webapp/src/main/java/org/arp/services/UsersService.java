@@ -1,29 +1,35 @@
 package org.arp.services;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.enterprise.context.ApplicationScoped;
+
 import org.arp.domain.User;
 
-public class UsersService {
-	
-	private static final AtomicInteger ID = new AtomicInteger(0);
-	private static final Map<Integer,User> USERS = new ConcurrentHashMap<>();
-	
+@ApplicationScoped
+public class UsersService implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	private final AtomicInteger counter = new AtomicInteger(0);
+	private final Map<Integer, User> users = new ConcurrentHashMap<>();
+
 	public User addUser(String username) {
-		Integer id = ID.incrementAndGet();
+		Integer id = counter.incrementAndGet();
 		User user = new User();
 		user.setId(id);
 		user.setUsername(username);
-		USERS.put(id, user);
+		users.put(id, user);
 		return user;
 	}
-	
+
 	public Collection<User> findAllUsers() {
-		return Collections.unmodifiableCollection(USERS.values());
+		return Collections.unmodifiableCollection(users.values());
 	}
 
 }
