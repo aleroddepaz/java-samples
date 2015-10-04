@@ -42,7 +42,7 @@ public class MainServlet extends HttpServlet {
 
 	private void renderHomePage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("users", service.findAllUsers());
-		request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);
 	}
 
 }

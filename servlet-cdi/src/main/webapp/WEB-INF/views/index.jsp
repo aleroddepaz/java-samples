@@ -1,19 +1,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>My web app</title>
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<style>
-body { padding: 10px; }
-</style>
-</head>
-<body class="container">
+<%@ taglib tagdir="/WEB-INF/tags" prefix="t" %>
+<t:template>
 	<div class="row">
 		<div class="well col-md-4">
-			<form method="post" action="${pageContext.servletContext.contextPath}/index">
+			<form method="post" action="">
 			
 				<c:if test="${not empty errors}">
 					<div class="alert alert-danger">
@@ -60,4 +51,4 @@ body { padding: 10px; }
 			</table>
 		</div>
 	</div>
-</body>
+</t:template>
