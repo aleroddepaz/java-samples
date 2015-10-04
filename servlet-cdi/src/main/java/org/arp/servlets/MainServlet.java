@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.arp.domain.User;
+import org.arp.services.ServiceException;
 import org.arp.services.UsersService;
 
-@WebServlet(value = { "/", "/index" }, loadOnStartup = 1)
+@WebServlet(value = { "/index" }, loadOnStartup = 1)
 public class MainServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -28,9 +28,16 @@ public class MainServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("username");
-		User newUser = service.addUser(username);
-		request.setAttribute("newUser", newUser);
+		try {
+			service.addUser(username);
+		} catch(ServiceException e) {
+			setErrors(request, e.getMessage());
+		}
 		renderHomePage(request, response);
+	}
+	
+	private void setErrors(HttpServletRequest request, String... errors) {
+		request.setAttribute("errors", errors);
 	}
 
 	private void renderHomePage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

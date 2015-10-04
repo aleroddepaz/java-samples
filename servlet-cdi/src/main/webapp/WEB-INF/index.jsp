@@ -1,4 +1,5 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!doctype html>
 <html>
 <head>
@@ -10,9 +11,27 @@ body { padding: 10px; }
 </style>
 </head>
 <body class="container">
-	<div class="row well">
-		<div class="col-md-4">
+	<div class="row">
+		<div class="well col-md-4">
 			<form method="post" action="${pageContext.servletContext.contextPath}/index">
+			
+				<c:if test="${not empty errors}">
+					<div class="alert alert-danger">
+						<c:choose>
+							<c:when test="${fn:length(errors) eq 1}">
+								<c:out value="${errors[0]}"/>
+							</c:when>
+							<c:otherwise>
+								<ul>
+									<c:forEach items="${errors}" var="error">
+										<li><c:out value="${error}"/></li>
+									</c:forEach>
+								</ul>
+							</c:otherwise>
+						</c:choose>
+					</div>
+				</c:if>
+				
 				<div class="form-group">
 					<label for="username">Username:</label>
 					<input id="username" name="username" class="form-control" />

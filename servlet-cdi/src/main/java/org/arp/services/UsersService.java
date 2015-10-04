@@ -25,10 +25,13 @@ public class UsersService implements Serializable {
 	private Logger logger;
 
 	public User addUser(String username) {
+		if(username == null || "".equals(username.trim())) {
+			throw new ServiceException("Username cannot be empty");
+		}
 		Integer id = counter.incrementAndGet();
 		User user = new User();
 		user.setId(id);
-		user.setUsername(username);
+		user.setUsername(username.trim());
 		
 		users.put(id, user);
 		logger.info("Stored a new user: {}", user);
