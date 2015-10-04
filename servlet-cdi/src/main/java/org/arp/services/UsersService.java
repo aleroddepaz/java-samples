@@ -8,8 +8,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 
 import org.arp.domain.User;
+import org.slf4j.Logger;
 
 @ApplicationScoped
 public class UsersService implements Serializable {
@@ -18,13 +20,18 @@ public class UsersService implements Serializable {
 
 	private final AtomicInteger counter = new AtomicInteger(0);
 	private final Map<Integer, User> users = new ConcurrentHashMap<>();
+	
+	@Inject
+	private Logger logger;
 
 	public User addUser(String username) {
 		Integer id = counter.incrementAndGet();
 		User user = new User();
 		user.setId(id);
 		user.setUsername(username);
+		
 		users.put(id, user);
+		logger.info("Stored a new user: {}", user);
 		return user;
 	}
 
