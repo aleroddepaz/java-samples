@@ -17,7 +17,6 @@
 <div class="container">
 	<h1>Jetty Clustering Example</h1>
 	<hr/>
-	
 	<div class="row top20">
 		<table class="table table-striped">
 			<thead>
@@ -46,7 +45,7 @@
 	
 	<div class="row top20">
 		<div class="well">
-			<form class="form-inline" action="/" method="post">
+			<form class="form-inline" action="" method="post">
 				<div class="form-group">
 					<label for="sessionAttributeInput">Session attribute</label>
 					<input id="sessionAttributeInput" name="sessionAttribute" class="form-control" placeholder="Attribute" required>
@@ -64,9 +63,13 @@
 	
 	<div class="row">
 		<div class="col-md-6">
-			<em>Current time is <fmt:formatDate value="${time}" pattern="HH:mm:ss dd/MM/yyyy" /></em>
+			<em>Current time is <fmt:formatDate value="${time}" pattern="HH:mm:ss dd/MM/yyyy" />.</em>
+			<em>Served from port <c:out value="${pageContext.request.localPort}"/>.</em>
 		</div>
-		<div class="col-md-6 text-right"><a href="/logout">Logout</a></div>
+		<div class="col-md-6 text-right">
+			<c:url value="/logout" var="logoutUrl"></c:url>
+			<a href="${logoutUrl}">Logout</a>
+		</div>
 	</div>
 </div>
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>

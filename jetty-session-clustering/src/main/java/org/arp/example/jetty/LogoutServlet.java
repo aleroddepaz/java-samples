@@ -9,20 +9,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("logout")
+@WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		log("Log out!");
-		
+		log("Log out! (Port " + request.getLocalPort() + ")");
 		HttpSession session = request.getSession(false);
 		if(session != null) {
 			session.invalidate();
 		}
-		
 		response.sendRedirect("/");
 	}
 }

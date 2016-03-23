@@ -7,10 +7,10 @@
 			<Arg>
 				<Ref refid="Server" />
 			</Arg>
-			<Set name="workerName">fred</Set>
+			<Set name="workerName">sessionWorker</Set>
 			<Call name="setDriverInfo">
-				<Arg>com.mysql.jdbc.Driver</Arg>
-				<Arg>jdbc:mysql://127.0.0.1:3306/sessions?user=jetty&amp;password=jetty</Arg>
+				<Arg>org.apache.derby.jdbc.ClientDriver</Arg>
+				<Arg>jdbc:derby://localhost:1527/sessionsDB;create=true</Arg>
 			</Call>
 			<Set name="scavengeInterval">10</Set>
 		</New>
