@@ -12,15 +12,15 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		log("Log out! (Port " + request.getLocalPort() + ")");
-		HttpSession session = request.getSession(false);
-		if(session != null) {
-			session.invalidate();
-		}
-		response.sendRedirect("/");
-	}
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        log("Log out! (Port " + req.getLocalPort() + ")");
+        HttpSession session = req.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        res.sendRedirect("/");
+    }
 }

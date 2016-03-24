@@ -1,7 +1,6 @@
 package org.arp.example.jetty;
 
 import java.io.IOException;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,28 +12,23 @@ import javax.servlet.http.HttpSession;
 @WebServlet("")
 public class HomeServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    static final String VIEW_NAME = "/WEB-INF/index.jsp";
 
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		renderHomePage(request, response);
-	}
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        req.getRequestDispatcher(VIEW_NAME).forward(req, res);
+    }
 
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		final String attribute = request.getParameter("sessionAttribute");
-		final String value = request.getParameter("sessionValue");
-		if(attribute != null && value != null) {
-			log("Adding '" + attribute + "=" + value + "' in session (Port " + request.getLocalPort() + ")");
-			HttpSession session = request.getSession();
-			session.setAttribute(attribute, value);
-		}
-		renderHomePage(request, response);
-	}
-
-	private void renderHomePage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("time", new Date());
-		request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
-	}
-	
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        final String attribute = req.getParameter("sessionAttribute");
+        final String value = req.getParameter("sessionValue");
+        if (attribute != null && value != null) {
+            log("Adding '" + attribute + "=" + value + "' in session (Port " + req.getLocalPort() + ")");
+            HttpSession session = req.getSession();
+            session.setAttribute(attribute, value);
+        }
+        req.getRequestDispatcher(VIEW_NAME).forward(req, res);
+    }
 }

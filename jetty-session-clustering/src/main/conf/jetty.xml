@@ -1,26 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_3.dtd">
 <Configure id="Server" class="org.eclipse.jetty.server.Server">
-
-	<Set name="sessionIdManager">
-		<New id="jdbcidmgr" class="org.eclipse.jetty.server.session.JDBCSessionIdManager">
-			<Arg>
-				<Ref refid="Server" />
-			</Arg>
-			<Set name="workerName">sessionWorker</Set>
-			<Call name="setDriverInfo">
-				<Arg>org.apache.derby.jdbc.ClientDriver</Arg>
-				<Arg>jdbc:derby://localhost:1527/sessionsDB;create=true</Arg>
-			</Call>
-			<Set name="scavengeInterval">10</Set>
-		</New>
-	</Set>
-	
-	<Call name="setAttribute">
-		<Arg>jdbcIdMgr</Arg>
-		<Arg>
-			<Ref refid="jdbcidmgr" />
-		</Arg>
-	</Call>
-	
+  <Set name="sessionIdManager">
+    <New class="org.eclipse.jetty.server.session.JDBCSessionIdManager">
+      <Arg>
+        <Ref refid="Server" />
+      </Arg>
+      <Set name="workerName">sessionWorker</Set>
+      <Call name="setDriverInfo">
+        <Arg>org.apache.derby.jdbc.ClientDriver</Arg>
+        <Arg>jdbc:derby://localhost:1527/sessionsDB;create=true</Arg>
+      </Call>
+      <Set name="scavengeInterval">10</Set>
+    </New>
+  </Set>
 </Configure>
