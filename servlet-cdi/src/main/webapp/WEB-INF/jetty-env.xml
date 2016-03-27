@@ -1,25 +1,20 @@
-<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_3.dtd">
 <Configure id="webAppCtx" class="org.eclipse.jetty.webapp.WebAppContext">
 
-	<!-- Enable internal classloading and bind BeanManager to JNDI -->
-	<!-- See http://docs.jboss.org/weld/reference/latest/en-US/html/environments.html#_jetty -->
+  <!-- Enable internal classloading and bind BeanManager to JNDI -->
+  <!-- See http://docs.jboss.org/weld/reference/latest/en-US/html/environments.html#_jetty -->
 
-	<Call name="prependServerClass">
-		<Arg>-org.eclipse.jetty.server.handler.ContextHandler,-org.eclipse.jetty.servlet.FilterHolder,-org.eclipse.jetty.servlet.ServletContextHandler,-org.eclipse.jetty.servlet.ServletHolder
-		</Arg>
-	</Call>
-
-	<New id="BeanManager" class="org.eclipse.jetty.plus.jndi.Resource">
-		<Arg>
-			<Ref refid="webAppCtx" />
-		</Arg>
-		<Arg>BeanManager</Arg>
-		<Arg>
-			<New class="javax.naming.Reference">
-				<Arg>javax.enterprise.inject.spi.BeanManager</Arg>
-				<Arg>org.jboss.weld.resources.ManagerObjectFactory</Arg>
-				<Arg />
-			</New>
-		</Arg>
-	</New>
+  <New class="org.eclipse.jetty.plus.jndi.Resource">
+    <Arg>
+      <Ref refid="webAppCtx" />
+    </Arg>
+    <Arg>BeanManager</Arg>
+    <Arg>
+      <New class="javax.naming.Reference">
+        <Arg>javax.enterprise.inject.spi.BeanManager</Arg>
+        <Arg>org.jboss.weld.resources.ManagerObjectFactory</Arg>
+        <Arg />
+      </New>
+    </Arg>
+  </New>
 </Configure>
