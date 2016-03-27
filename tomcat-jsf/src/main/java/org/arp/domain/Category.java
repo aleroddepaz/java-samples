@@ -7,6 +7,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -15,73 +20,86 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "CATEGORIES")
+@NamedQueries({
+    @NamedQuery(name = Category.FIND_ROOT, query = "SELECT c FROM Category c WHERE c.parent IS NULL"),
+    @NamedQuery(name = Category.FIND_CHILDREN, query = "SELECT c FROM Category c WHERE c.parent.id = :parentId")
+})
 public class Category implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Column(name = "CATEGORY_ID")
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+    public static final String FIND_ROOT = "Category.findRoot";
+    public static final String FIND_CHILDREN = "Category.findChildren";
 
-	@Column(name = "PARENT_ID", nullable = true)
-	private Long parentId;
+    @Id
+    @Column(name = "CATEGORY_ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-	@NotNull
-	@Size(min = 4, max = 50)
-	@Column(name = "NAME")
-	private String name;
+    @JoinColumn(name = "PARENT_ID", nullable = true)
+    private Category parent;
 
-	@Size(min = 5, max = 250)
-	@Column(name = "DESCRIPTION", nullable = true)
-	private String description;
+    @NotNull
+    @Size(min = 4, max = 50)
+    @Column(name = "NAME")
+    private String name;
 
-	@Column(name = "CREATION_DATE")
-	@Temporal(TemporalType.DATE)
-	private Date creationDate;
+    @Size(min = 5, max = 250)
+    @Column(name = "DESCRIPTION", nullable = true)
+    private String description;
 
-	public Long getId() {
-		return id;
-	}
+    @Column(name = "CREATION_DATE")
+    @Temporal(TemporalType.DATE)
+    private Date creationDate;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public Long getParentId() {
-		return parentId;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setParentId(Long parentId) {
-		this.parentId = parentId;
-	}
+    public Category getParent() {
+        return parent;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setParent(Category parent) {
+        this.parent = parent;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public Date getCreationDate() {
-		return creationDate;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
-	}
+    public Date getCreationDate() {
+        return creationDate;
+    }
 
-	@Override
-	public String toString() {
-		return "Category [id=" + id + ", parentId=" + parentId + ", name=" + name + "]";
-	}
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        setCreationDate(new Date());
+    }
+
+    @Override
+    public String toString() {
+        return "Category [id=" + id + ", name=" + name + "]";
+    }
 
 }

@@ -1,18 +1,28 @@
 package org.arp.producers;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
+import javax.persistence.Persistence;
 
+@ApplicationScoped
 public class EntityManagerProducer {
 
-	@PersistenceUnit
-	private EntityManagerFactory factory;
-	
-	@Produces
-	EntityManager createEntityManager() {
-		return factory.createEntityManager();
-	}
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("ExamplePu");
+
+    @Produces
+    @RequestScoped
+    public EntityManager createEntityManager() {
+        return emf.createEntityManager();
+    }
+
+    public void closeEntityManager(@Disposes EntityManager em) {
+        if (em.isOpen()) {
+            em.close();
+        }
+    }
 
 }

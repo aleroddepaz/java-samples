@@ -1,55 +1,50 @@
 package org.arp.controllers;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.arp.domain.Category;
 import org.arp.services.CategoriesService;
+import org.slf4j.Logger;
 
-@Named("category")
+@Named("categoriesCtrl")
 @RequestScoped
 public class CategoriesController implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private final CategoriesService service;	
-	private Long parentId;
-	private String name;
-	private String description;
+    @Inject
+    CategoriesService service;
+    
+    @Inject
+    Logger logger;
 
-	@Inject
-	public CategoriesController(CategoriesService service) {
-		this.service = service;
-	}
-	
-	public void createCategory() {
-		service.create(parentId, name, description);
-	}
+    private List<Category> categories;
+    private Category newCategory = new Category();
 
-	public Long getParentId() {
-		return parentId;
-	}
+    public void loadCategories(ComponentSystemEvent e) {
+        logger.trace("loadCategories()");
+        categories = service.findRootCategories();
+    }
 
-	public void setParentId(Long parentId) {
-		this.parentId = parentId;
-	}
+    public void create() {
+        logger.trace("create()");
+        if (service.create(newCategory)) {
+            newCategory = new Category();
+        }
+    }
 
-	public String getName() {
-		return name;
-	}
+    public Category getNewCategory() {
+        return newCategory;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public List<Category> getCategories() {
+        return categories;
+    }
 
 }
