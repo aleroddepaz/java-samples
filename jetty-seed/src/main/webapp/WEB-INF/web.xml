@@ -1,0 +1,26 @@
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+    version="3.0">
+
+    <display-name>Jetty seed webapp</display-name>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/views/40x.jsp</location>
+    </error-page>
+
+    <error-page>
+        <error-code>405</error-code>
+        <location>/WEB-INF/views/40x.jsp</location>
+    </error-page>
+
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>Web Realm</realm-name>
+        <form-login-config>
+            <form-login-page>/login</form-login-page>
+            <form-error-page>/login?error</form-error-page>
+        </form-login-config>
+    </login-config>
+</web-app>
