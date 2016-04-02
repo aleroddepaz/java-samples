@@ -1,0 +1,22 @@
+body {
+	padding: 15px;
+}
+.task-list {
+	list-style: none;
+	padding-left: 0px;
+}
+.task-item {
+	padding: 10px 5px;
+	border-bottom: 1px dashed #ddd;
+}
+.task-item:hover {
+	background: #eee;
+}
+.task-checkbox {
+	float: left;
+	width: 30px;
+}
+.task-done {
+	color: #666;
+	text-decoration: line-through;
+}
