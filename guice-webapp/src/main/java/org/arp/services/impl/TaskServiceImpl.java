@@ -1,27 +1,37 @@
 package org.arp.services.impl;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicLong;
+
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import org.arp.model.Task;
 import org.arp.services.ServiceException;
 import org.arp.services.TaskService;
 
-public class InMemoryTaskService implements TaskService {
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+import com.google.inject.Singleton;
+import com.google.inject.persist.Transactional;
+
+@Singleton
+@Transactional
+public class TaskServiceImpl implements TaskService {
 
     private static final long serialVersionUID = 1L;
-
     private static final int MAX_LENGTH = 50;
 
-    private final Map<Long, Task> todos = new ConcurrentHashMap<>();
-    private final AtomicLong counter = new AtomicLong();
+    @Inject
+    Provider<EntityManager> provider;
+
+    private EntityManager getEntityManager() {
+        return provider.get();
+    }
 
     @Override
     public Task create(String text) throws ServiceException {
+        provider.get();
         final String todoText = text == null ? null : text.trim();
 
         if (todoText == null || "".equals(todoText)) {
@@ -30,19 +40,17 @@ public class InMemoryTaskService implements TaskService {
             throw new ServiceException("The to-do text must not have more than " + MAX_LENGTH + " characters");
         }
 
-        long id = counter.incrementAndGet();
         Task todo = new Task();
-        todo.setId(id);
         todo.setText(todoText);
         todo.setCreationDate(new Date());
-        todos.put(id, todo);
-
+        getEntityManager().persist(todo);
         return todo;
     }
 
     @Override
     public List<Task> findAll() {
-        return new ArrayList<>(todos.values());
+        TypedQuery<Task> query = getEntityManager().createQuery("SELECT t FROM Task t", Task.class);
+        return query.getResultList();
     }
 
 }
