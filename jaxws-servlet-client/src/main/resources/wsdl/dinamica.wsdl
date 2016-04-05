@@ -1,0 +1,872 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetLastError">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetLastErrorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLastErrorResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEvents">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="linea" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="sec" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="parada" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEventsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEventsResult" type="tns:ArrayOfInfoHeaderEvent" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfInfoHeaderEvent">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="InfoHeaderEvent" type="tns:InfoHeaderEvent" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="InfoHeaderEvent">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="hora_llegada" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="hora_salida" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="hora_referencia" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="hora_teorica" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="espera" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="coche" type="s:unsignedByte" />
+          <s:element minOccurs="1" maxOccurs="1" name="viaje" type="s:unsignedByte" />
+          <s:element minOccurs="1" maxOccurs="1" name="llegada_ejecutada" type="s:unsignedByte" />
+          <s:element minOccurs="1" maxOccurs="1" name="salida_ejecutada" type="s:unsignedByte" />
+          <s:element minOccurs="0" maxOccurs="1" name="servicio" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="XGetVehiculos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pass" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="linea" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="XGetVehiculosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="XGetVehiculosResult" type="tns:ArrayOfInfoVehiculo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfInfoVehiculo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="InfoVehiculo" type="tns:InfoVehiculo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="InfoVehiculo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="vehiculo" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="linea" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="sublinea" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="coche" type="s:unsignedByte" />
+          <s:element minOccurs="0" maxOccurs="1" name="serv_bus" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="conductor" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="serv_cond" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="estado" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="estadoLocReal" type="s:unsignedByte" />
+          <s:element minOccurs="1" maxOccurs="1" name="xcoord" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ycoord" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetVehiculos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="linea" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetVehiculosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetVehiculosResult" type="tns:ArrayOfInfoVehiculo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="XGetCoches">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pass" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="linea" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="XGetCochesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="XGetCochesResult" type="tns:ArrayOfInfoCoche" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfInfoCoche">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="InfoCoche" type="tns:InfoCoche" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="InfoCoche">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="coche" type="s:unsignedByte" />
+          <s:element minOccurs="1" maxOccurs="1" name="vehiculo" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="serv_bus" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="conductor" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="serv_cond" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="estado" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="estadoLocReal" type="s:unsignedByte" />
+          <s:element minOccurs="1" maxOccurs="1" name="pos_real" type="tns:InfoPosicion" />
+          <s:element minOccurs="1" maxOccurs="1" name="pos_teor" type="tns:InfoPosicion" />
+          <s:element minOccurs="1" maxOccurs="1" name="desfase" type="tns:InfoSeparacion" />
+          <s:element minOccurs="1" maxOccurs="1" name="frec_real" type="tns:InfoSeparacion" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="InfoPosicion">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="seccion" type="s:unsignedByte" />
+          <s:element minOccurs="1" maxOccurs="1" name="offset" type="s:short" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="InfoSeparacion">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="tiempo" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="espacio" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="estado" type="s:unsignedByte" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetCoches">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="linea" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCochesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCochesResult" type="tns:ArrayOfInfoCoche" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="XGetPasoParada">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pass" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="linea" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="parada" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="status" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="XGetPasoParadaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="XGetPasoParadaResult" type="tns:ArrayOfPasoParada" />
+            <s:element minOccurs="1" maxOccurs="1" name="status" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPasoParada">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PasoParada" nillable="true" type="tns:PasoParada" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PasoParada">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="cabecera" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="e1" type="tns:Estimacion" />
+          <s:element minOccurs="0" maxOccurs="1" name="e2" type="tns:Estimacion" />
+          <s:element minOccurs="0" maxOccurs="1" name="linea" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="parada" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ruta" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="sublinea" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Estimacion">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="minutos" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="metros" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="tipo" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetPasoParada">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="linea" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="parada" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="status" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPasoParadaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPasoParadaResult" type="tns:ArrayOfPasoParada" />
+            <s:element minOccurs="1" maxOccurs="1" name="status" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="XGetPasoParadaREG">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pass" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="linea" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="parada" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="medio" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="status" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="XGetPasoParadaREGResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="XGetPasoParadaREGResult" type="tns:ArrayOfPasoParada" />
+            <s:element minOccurs="1" maxOccurs="1" name="status" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPasoParadaREG">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="linea" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="parada" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="medio" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="status" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPasoParadaREGResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPasoParadaREGResult" type="tns:ArrayOfPasoParada" />
+            <s:element minOccurs="1" maxOccurs="1" name="status" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStatusLinea">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="linea" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStatusLineaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetStatusLineaResult" type="tns:LineStatusInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="LineStatusInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="activos" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="localizados" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="desf" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="desf_abs" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="desf_bien" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="desf_regular" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="desf_adel" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="desf_retr" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="frec" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="frec_desf" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="frec_bien" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="frec_regular" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="frec_adel" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="frec_retr" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="graves" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="linea" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetStatusLineas">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="lineas" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetStatusLineasResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetStatusLineasResult" type="tns:ArrayOfLineStatusInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfLineStatusInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="LineStatusInfo" type="tns:LineStatusInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetAcciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="macro" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="linea" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="coche" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="vehiculo" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAccionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAccionesResult" type="tns:ArrayOfInfoAccion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfInfoAccion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="infoAccion" type="tns:infoAccion" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="infoAccion">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="fecha" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="linea" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="coche" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="vehiculo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="instante" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="parametros" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetInfoVehiculo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="linea" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="coche" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="vehiculo" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInfoVehiculoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetInfoVehiculoResult" type="tns:infoVehiculoExt" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="infoVehiculoExt">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="vehiculoId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="cocheId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="servicioId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="conductor" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="conductorId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="estadoServicio" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="sentido" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ultimaParada" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="proximaSalida" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HoraProximaSalida" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="desfase" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="estadoLocalizacion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="dutyId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HoraProximoRelevo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="proximoRelevo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="proximoConductor" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="lineaLbl" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetInfoActividades">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="svcbus" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="svccond" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="cond" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInfoActividadesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetInfoActividadesResult" type="tns:ArrayOfActividadesInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfActividadesInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ActividadesInfo" type="tns:ActividadesInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ActividadesInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="linea" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="macro" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="coche" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="viaje" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="servBus" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="servCond" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="label" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="conductor" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="actividad" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="hTeor" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="hRef" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="hReal" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetLastErrorSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLastError" />
+  </wsdl:message>
+  <wsdl:message name="GetLastErrorSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLastErrorResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEventsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEvents" />
+  </wsdl:message>
+  <wsdl:message name="GetEventsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEventsResponse" />
+  </wsdl:message>
+  <wsdl:message name="XGetVehiculosSoapIn">
+    <wsdl:part name="parameters" element="tns:XGetVehiculos" />
+  </wsdl:message>
+  <wsdl:message name="XGetVehiculosSoapOut">
+    <wsdl:part name="parameters" element="tns:XGetVehiculosResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetVehiculosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetVehiculos" />
+  </wsdl:message>
+  <wsdl:message name="GetVehiculosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetVehiculosResponse" />
+  </wsdl:message>
+  <wsdl:message name="XGetCochesSoapIn">
+    <wsdl:part name="parameters" element="tns:XGetCoches" />
+  </wsdl:message>
+  <wsdl:message name="XGetCochesSoapOut">
+    <wsdl:part name="parameters" element="tns:XGetCochesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCochesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCoches" />
+  </wsdl:message>
+  <wsdl:message name="GetCochesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCochesResponse" />
+  </wsdl:message>
+  <wsdl:message name="XGetPasoParadaSoapIn">
+    <wsdl:part name="parameters" element="tns:XGetPasoParada" />
+  </wsdl:message>
+  <wsdl:message name="XGetPasoParadaSoapOut">
+    <wsdl:part name="parameters" element="tns:XGetPasoParadaResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPasoParadaSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPasoParada" />
+  </wsdl:message>
+  <wsdl:message name="GetPasoParadaSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPasoParadaResponse" />
+  </wsdl:message>
+  <wsdl:message name="XGetPasoParadaREGSoapIn">
+    <wsdl:part name="parameters" element="tns:XGetPasoParadaREG" />
+  </wsdl:message>
+  <wsdl:message name="XGetPasoParadaREGSoapOut">
+    <wsdl:part name="parameters" element="tns:XGetPasoParadaREGResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPasoParadaREGSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPasoParadaREG" />
+  </wsdl:message>
+  <wsdl:message name="GetPasoParadaREGSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPasoParadaREGResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetStatusLineaSoapIn">
+    <wsdl:part name="parameters" element="tns:GetStatusLinea" />
+  </wsdl:message>
+  <wsdl:message name="GetStatusLineaSoapOut">
+    <wsdl:part name="parameters" element="tns:GetStatusLineaResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetStatusLineasSoapIn">
+    <wsdl:part name="parameters" element="tns:GetStatusLineas" />
+  </wsdl:message>
+  <wsdl:message name="GetStatusLineasSoapOut">
+    <wsdl:part name="parameters" element="tns:GetStatusLineasResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAccionesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAcciones" />
+  </wsdl:message>
+  <wsdl:message name="GetAccionesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAccionesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetInfoVehiculoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetInfoVehiculo" />
+  </wsdl:message>
+  <wsdl:message name="GetInfoVehiculoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetInfoVehiculoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetInfoActividadesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetInfoActividades" />
+  </wsdl:message>
+  <wsdl:message name="GetInfoActividadesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetInfoActividadesResponse" />
+  </wsdl:message>
+  <wsdl:portType name="DinamicaSoap">
+    <wsdl:operation name="GetLastError">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Ultimo error</wsdl:documentation>
+      <wsdl:input message="tns:GetLastErrorSoapIn" />
+      <wsdl:output message="tns:GetLastErrorSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEvents">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Eventos de cabecera</wsdl:documentation>
+      <wsdl:input message="tns:GetEventsSoapIn" />
+      <wsdl:output message="tns:GetEventsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="XGetVehiculos">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Vehiculos de la Linea</wsdl:documentation>
+      <wsdl:input message="tns:XGetVehiculosSoapIn" />
+      <wsdl:output message="tns:XGetVehiculosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetVehiculos">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Vehiculos de la Linea</wsdl:documentation>
+      <wsdl:input message="tns:GetVehiculosSoapIn" />
+      <wsdl:output message="tns:GetVehiculosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="XGetCoches">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Coches de la Linea</wsdl:documentation>
+      <wsdl:input message="tns:XGetCochesSoapIn" />
+      <wsdl:output message="tns:XGetCochesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCoches">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Coches de la Linea</wsdl:documentation>
+      <wsdl:input message="tns:GetCochesSoapIn" />
+      <wsdl:output message="tns:GetCochesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="XGetPasoParada">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Estimacion de paso por parada</wsdl:documentation>
+      <wsdl:input message="tns:XGetPasoParadaSoapIn" />
+      <wsdl:output message="tns:XGetPasoParadaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPasoParada">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Estimacion de paso por parada</wsdl:documentation>
+      <wsdl:input message="tns:GetPasoParadaSoapIn" />
+      <wsdl:output message="tns:GetPasoParadaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="XGetPasoParadaREG">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Estimacion de paso por parada y registra en BD</wsdl:documentation>
+      <wsdl:input message="tns:XGetPasoParadaREGSoapIn" />
+      <wsdl:output message="tns:XGetPasoParadaREGSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPasoParadaREG">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Estimacion de paso por parada y registra en BD</wsdl:documentation>
+      <wsdl:input message="tns:GetPasoParadaREGSoapIn" />
+      <wsdl:output message="tns:GetPasoParadaREGSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStatusLinea">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Estado de la Linea</wsdl:documentation>
+      <wsdl:input message="tns:GetStatusLineaSoapIn" />
+      <wsdl:output message="tns:GetStatusLineaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStatusLineas">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Estado de las Lineas</wsdl:documentation>
+      <wsdl:input message="tns:GetStatusLineasSoapIn" />
+      <wsdl:output message="tns:GetStatusLineasSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAcciones">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Acciones por linea</wsdl:documentation>
+      <wsdl:input message="tns:GetAccionesSoapIn" />
+      <wsdl:output message="tns:GetAccionesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInfoVehiculo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Informacion adicional de vehiculos</wsdl:documentation>
+      <wsdl:input message="tns:GetInfoVehiculoSoapIn" />
+      <wsdl:output message="tns:GetInfoVehiculoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInfoActividades">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">getactividades</wsdl:documentation>
+      <wsdl:input message="tns:GetInfoActividadesSoapIn" />
+      <wsdl:output message="tns:GetInfoActividadesSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DinamicaSoap" type="tns:DinamicaSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetLastError">
+      <soap:operation soapAction="http://tempuri.org/GetLastError" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEvents">
+      <soap:operation soapAction="http://tempuri.org/GetEvents" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="XGetVehiculos">
+      <soap:operation soapAction="http://tempuri.org/XGetVehiculos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVehiculos">
+      <soap:operation soapAction="http://tempuri.org/GetVehiculos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="XGetCoches">
+      <soap:operation soapAction="http://tempuri.org/XGetCoches" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCoches">
+      <soap:operation soapAction="http://tempuri.org/GetCoches" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="XGetPasoParada">
+      <soap:operation soapAction="http://tempuri.org/XGetPasoParada" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPasoParada">
+      <soap:operation soapAction="http://tempuri.org/GetPasoParada" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="XGetPasoParadaREG">
+      <soap:operation soapAction="http://tempuri.org/XGetPasoParadaREG" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPasoParadaREG">
+      <soap:operation soapAction="http://tempuri.org/GetPasoParadaREG" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStatusLinea">
+      <soap:operation soapAction="http://tempuri.org/GetStatusLinea" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStatusLineas">
+      <soap:operation soapAction="http://tempuri.org/GetStatusLineas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAcciones">
+      <soap:operation soapAction="http://tempuri.org/GetAcciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInfoVehiculo">
+      <soap:operation soapAction="http://tempuri.org/GetInfoVehiculo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInfoActividades">
+      <soap:operation soapAction="http://tempuri.org/GetInfoActividades" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DinamicaSoap12" type="tns:DinamicaSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetLastError">
+      <soap12:operation soapAction="http://tempuri.org/GetLastError" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEvents">
+      <soap12:operation soapAction="http://tempuri.org/GetEvents" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="XGetVehiculos">
+      <soap12:operation soapAction="http://tempuri.org/XGetVehiculos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVehiculos">
+      <soap12:operation soapAction="http://tempuri.org/GetVehiculos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="XGetCoches">
+      <soap12:operation soapAction="http://tempuri.org/XGetCoches" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCoches">
+      <soap12:operation soapAction="http://tempuri.org/GetCoches" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="XGetPasoParada">
+      <soap12:operation soapAction="http://tempuri.org/XGetPasoParada" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPasoParada">
+      <soap12:operation soapAction="http://tempuri.org/GetPasoParada" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="XGetPasoParadaREG">
+      <soap12:operation soapAction="http://tempuri.org/XGetPasoParadaREG" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPasoParadaREG">
+      <soap12:operation soapAction="http://tempuri.org/GetPasoParadaREG" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStatusLinea">
+      <soap12:operation soapAction="http://tempuri.org/GetStatusLinea" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStatusLineas">
+      <soap12:operation soapAction="http://tempuri.org/GetStatusLineas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAcciones">
+      <soap12:operation soapAction="http://tempuri.org/GetAcciones" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInfoVehiculo">
+      <soap12:operation soapAction="http://tempuri.org/GetInfoVehiculo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInfoActividades">
+      <soap12:operation soapAction="http://tempuri.org/GetInfoActividades" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Dinamica">
+    <wsdl:port name="DinamicaSoap" binding="tns:DinamicaSoap">
+      <soap:address location="http://www.infobustussam.com:9001/services/dinamica.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
