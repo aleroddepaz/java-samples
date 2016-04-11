@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>JAX-WS client webapp</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+<style type="text/css">
+body {
+	padding: 10px;
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+
+      <!-- Form -->
+      <div class="col-md-4">
+        <form action="" method="post" class="form-horizontal well">
+          <div class="form-group">
+            <label for="linea" class="col-md-4 control-label">L&iacute;nea:</label>
+            <div class="col-md-8">
+              <input id="linea" name="linea" type="text" th:value="${linea}" class="form-control" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="parada" class="col-md-4 control-label">Parada:</label>
+            <div class="col-md-8">
+              <input id="parada" name="parada" type="text" th:value="${parada}" class="form-control" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+              <button class="btn btn-success" type="submit">Consultar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Results -->
+      <div class="col-md-8">
+        <table class="table" th:if="${pasosParada}">
+          <thead>
+            <tr>
+              <th>L&iacute;nea</th>
+              <th>Ruta</th>
+              <th class="text-center" colspan="2">Estimaciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="paso : ${pasosParada}">
+              <td th:text="${paso.linea}"></td>
+              <td th:text="${paso.ruta}"></td>
+              <td th:text="${paso.e1.minutos} + ' min'"></td>
+              <td th:text="${paso.e2.minutos} + ' min'"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <hr />
+    <em>Petici&oacute;n realizada a las <span th:text="${#dates.format(now, 'yyyy-MM-dd HH:mm:ss')}"></span></em>
+  </div>
+</body>
+</html>

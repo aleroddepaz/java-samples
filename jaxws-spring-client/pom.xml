@@ -1,0 +1,77 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.arp.examples</groupId>
+  <artifactId>jaxws-spring-client</artifactId>
+  <packaging>war</packaging>
+  <version>1.0-SNAPSHOT</version>
+  
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>4.2.5.RELEASE</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.thymeleaf</groupId>
+      <artifactId>thymeleaf-spring4</artifactId>
+      <version>2.1.4.RELEASE</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>1.10</version>
+        <executions>
+          <execution>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>add-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>${project.build.directory}/generated-sources/java</source>
+              </sources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.jvnet.jax-ws-commons</groupId>
+        <artifactId>jaxws-maven-plugin</artifactId>
+        <version>2.3</version>
+        <executions>
+          <execution>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>wsimport</goal>
+            </goals>
+            <configuration>
+              <sourceDestDir>${project.build.directory}/generated-sources/java</sourceDestDir>
+              <wsdlDirectory>${project.basedir}/src/main/resources/wsdl</wsdlDirectory>
+              <wsdlFiles>
+                <wsdlFile>dinamica.wsdl</wsdlFile>
+              </wsdlFiles>
+              <wsdlLocation>/wsdl/dinamica.wsdl</wsdlLocation>
+              <vmArgs>
+                <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
+              </vmArgs>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
