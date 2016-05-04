@@ -40,6 +40,8 @@
   </dependencies>
 
   <build>
+    <defaultGoal>jetty:run -DconfigLocation=conf/app.properties</defaultGoal>
+    
     <plugins>
       <plugin>
         <groupId>org.eclipse.jetty</groupId>

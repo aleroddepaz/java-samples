@@ -42,6 +42,11 @@ body {
 
       <!-- Results -->
       <div class="col-md-8">
+        <c:if test="${not empty error}">
+          <div class="alert alert-danger">
+            <span><c:out value="${error}"/></span>
+          </div>
+        </c:if>
         <c:if test="${not empty pasosParada}">
           <table class="table">
             <thead>
