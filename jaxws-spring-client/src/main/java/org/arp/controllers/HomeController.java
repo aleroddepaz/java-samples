@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.xml.ws.Holder;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.remoting.RemoteAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +20,8 @@ import org.tempuri.PasoParada;
 @Controller
 @RequestMapping("/")
 public class HomeController {
+    
+    private static final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
     
     private final DinamicaSoap port;
     
@@ -38,11 +43,16 @@ public class HomeController {
         model.addObject("linea", linea);
         model.addObject("parada", parada);
         
-        Holder<Integer> status = new Holder<>();
-        Holder<ArrayOfPasoParada> resultados = new Holder<>();
-        port.getPasoParada(linea, parada, status, resultados);
-        List<PasoParada> pasosParada = resultados.value.getPasoParada();
-        model.addObject("pasosParada", pasosParada);
+        try {
+            Holder<Integer> status = new Holder<>();
+            Holder<ArrayOfPasoParada> resultados = new Holder<>();
+            port.getPasoParada(linea, parada, status, resultados);
+            List<PasoParada> pasosParada = resultados.value.getPasoParada();
+            model.addObject("pasosParada", pasosParada);
+        } catch(RemoteAccessException e) {
+            LOGGER.error("Error al llamar al servicio 'getPasoParada'", e);
+            model.addObject("error", e.getLocalizedMessage());
+        }
         return model;
     }
 

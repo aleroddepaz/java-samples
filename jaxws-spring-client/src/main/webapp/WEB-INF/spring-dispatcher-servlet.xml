@@ -9,6 +9,7 @@
     <property name="serviceName" value="Dinamica" />
     <property name="wsdlDocumentUrl" value="classpath:wsdl/dinamica.wsdl"/>
     <property name="serviceInterface" value="org.tempuri.DinamicaSoap" />
+    <property name="endpointAddress" value="http://www.infobustussam.com:9001/services/dinamica.asmx"/>
   </bean>
   
   <bean class="org.arp.controllers.HomeController">
