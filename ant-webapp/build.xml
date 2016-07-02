@@ -1,0 +1,91 @@
+<!DOCTYPE xml>
+<project name="ant-webapp" default="war" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:sonar="antlib:org.sonar.ant">
+
+	<!-- Taskdefs -->
+	<path id="antlibs.path">
+		<fileset dir="antlibs" includes="*.jar"/>
+	</path>
+	<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="antlibs.path" />
+	<taskdef resource="org/sonar/ant/antlib.xml" uri="antlib:org.sonar.ant" classpathref="antlibs.path" />
+	<taskdef name="junit" classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask" classpathref="antlibs.path" />
+
+	<!-- Source directories -->
+	<property name="main.src.dir" value="src/main/java" />
+	<property name="test.src.dir" value="src/test/java" />
+	<property name="webapp.dir" value="src/main/webapp" />
+
+	<!-- Build directories -->
+	<property name="build.dir" value="build" />
+	<property name="main.build.dir" value="${build.dir}/main" />
+	<property name="test.build.dir" value="${build.dir}/test" />
+	<property name="junit.report.dir" value="${build.dir}/reports" />
+	<property name="war.name" value="${build.dir}/${ant.project.name}.war" />
+
+	<target name="resolve" description="retrieve dependencies with ivy">
+		<delete dir="${ivy.lib.dir}" />
+		<ivy:retrieve />
+		<ivy:cachepath pathid="compile.path" conf="compile" />
+		<ivy:cachepath pathid="runtime.path" conf="runtime" />
+		<ivy:cachepath pathid="test.path" conf="test" />
+	</target>
+
+	<target name="compile" depends="resolve" description="compile the sources">
+		<delete dir="${build.dir}" />
+		<mkdir dir="${main.build.dir}" />
+		<javac srcdir="${main.src.dir}" destdir="${main.build.dir}" includeantruntime="false">
+			<classpath refid="runtime.path" />
+		</javac>
+	</target>
+
+	<target name="test" depends="compile" description="run the tests">
+		<mkdir dir="${test.build.dir}" />
+		<mkdir dir="${junit.report.dir}" />
+		<javac srcdir="${test.src.dir}" destdir="${test.build.dir}" includeantruntime="false">
+			<classpath refid="test.path" />
+			<classpath location="${main.build.dir}" />
+		</javac>
+		<junit printsummary="on" haltonfailure="yes" fork="true">
+			<classpath refid="test.path" />
+			<classpath location="${main.build.dir}" />
+			<classpath location="${test.build.dir}" />
+			<formatter type="xml" />
+			<batchtest todir="${junit.report.dir}">
+				<fileset dir="${test.src.dir}" includes="**/*Test.java" />
+			</batchtest>
+		</junit>
+	</target>
+
+	<target name="war" depends="test" description="generate the war">
+		<war destfile="${war.name}" webxml="${webapp.dir}/WEB-INF/web.xml">
+			<fileset dir="${webapp.dir}" />
+			<classes dir="${main.build.dir}" />
+			<!-- See http://www.beilers.com/2010/06/ivy-dependency-management-lessons-learned-and-ant-1-8-mapped-resources/ -->
+			<mappedresources>
+				<restrict>
+					<path refid="compile.path" />
+					<type type="file" />
+				</restrict>
+				<chainedmapper>
+					<flattenmapper />
+					<globmapper from="*" to="WEB-INF/lib/*" />
+				</chainedmapper>
+			</mappedresources>
+		</war>
+	</target>
+
+	<target name="sonar" depends="test" description="run the sonar analysis">
+		<property name="sonar.projectKey" value="${ivy.organisation}:${ivy.module}" />
+		<property name="sonar.projectName" value="${ant.project.name}" />
+		<property name="sonar.projectVersion" value="${ivy.revision}" />
+		<property name="sonar.sources" value="${main.src.dir}" />
+		<property name="sonar.tests" value="${test.src.dir}" />
+		<property name="sonar.language" value="java" />
+		<property name="sonar.sourceEncoding" value="UTF-8" />
+		<property name="sonar.java.binaries" value="${main.build.dir}" />
+		<property name="sonar.java.test.binaries" value="${test.build.dir}" />
+		<property name="sonar.java.libraries" value="${ivy.lib.dir}" />
+		<property name="sonar.junit.reportsPath" value="${junit.report.dir}" />
+		<sonar:sonar />
+	</target>
+
+</project>

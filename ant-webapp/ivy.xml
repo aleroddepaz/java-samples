@@ -1,0 +1,16 @@
+<ivy-module version="2.0">
+	<info organisation="org.arp.example" module="ant-webapp" revision="1.0" />
+
+	<configurations>
+		<conf name="compile" description="Required to compile application" />
+		<conf name="runtime" description="Additional run-time dependencies" extends="compile" />
+		<conf name="test" description="Required for test only" extends="runtime" />
+	</configurations>
+
+	<dependencies>
+		<dependency org="org.apache.commons" name="commons-lang3" rev="3.4" conf="compile->default" />
+		<dependency org="javax.servlet" name="servlet-api" rev="2.5" conf="runtime->default" />
+		<dependency org="junit" name="junit" rev="4.12" conf="test->default" />
+		<dependency org="org.mockito" name="mockito-core" rev="1.10.19" conf="test->default" />
+	</dependencies>
+</ivy-module>
