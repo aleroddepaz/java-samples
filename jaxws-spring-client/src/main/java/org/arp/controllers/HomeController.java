@@ -20,36 +20,37 @@ import org.tempuri.PasoParada;
 @Controller
 @RequestMapping("/")
 public class HomeController {
-    
+
     private static final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
-    
+    static final String HOME_VIEW = "home";
+
     private final DinamicaSoap port;
-    
+
     public HomeController(DinamicaSoap port) {
         this.port = port;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView get() {
-        ModelAndView model = new ModelAndView("home");
+        ModelAndView model = new ModelAndView(HOME_VIEW);
         model.addObject("now", new Date());
         return model;
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView post(@RequestParam(name = "linea") String linea, @RequestParam(name = "parada") String parada) {
-        ModelAndView model = new ModelAndView("home");
+        ModelAndView model = new ModelAndView(HOME_VIEW);
         model.addObject("now", new Date());
         model.addObject("linea", linea);
         model.addObject("parada", parada);
-        
+
         try {
             Holder<Integer> status = new Holder<>();
             Holder<ArrayOfPasoParada> resultados = new Holder<>();
             port.getPasoParada(linea, parada, status, resultados);
             List<PasoParada> pasosParada = resultados.value.getPasoParada();
             model.addObject("pasosParada", pasosParada);
-        } catch(RemoteAccessException e) {
+        } catch (RemoteAccessException e) {
             LOGGER.error("Error al llamar al servicio 'getPasoParada'", e);
             model.addObject("error", e.getLocalizedMessage());
         }
