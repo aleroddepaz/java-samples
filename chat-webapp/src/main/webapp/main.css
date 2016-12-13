@@ -1,0 +1,27 @@
+body {
+	font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+	font-size: 14px;
+	margin: 0px auto;
+	width: 600px;
+}
+textarea {
+	font-family: inherit;
+}
+#conversation {
+	background-color: #d3d3d3;
+	padding: 10px;
+}
+.message {
+	background-color: white;
+	margin: 10px;
+	padding: 10px;
+	border-radius: 5px;
+	box-shadow: 1px 1px 2px black;
+}
+#message {
+	display: block;
+	min-width: 500px;
+	margin: 10px auto;
+	padding: 5px;
+	border-radius: 5px;
+}
