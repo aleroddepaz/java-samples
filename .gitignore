@@ -1,0 +1,14 @@
+# Eclipse files
+.settings/
+.project
+.classpath
+
+# SonarQube
+.sonar/
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.next
+release.properties

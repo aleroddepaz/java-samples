@@ -15,7 +15,7 @@
 	<property name="webapp.dir" value="src/main/webapp" />
 
 	<!-- Build directories -->
-	<property name="build.dir" value="build" />
+	<property name="build.dir" value="target" />
 	<property name="main.build.dir" value="${build.dir}/main" />
 	<property name="test.build.dir" value="${build.dir}/test" />
 	<property name="junit.report.dir" value="${build.dir}/reports" />
