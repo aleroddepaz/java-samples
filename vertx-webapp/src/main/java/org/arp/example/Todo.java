@@ -2,8 +2,6 @@ package org.arp.example;
 
 import java.io.Serializable;
 
-import io.vertx.core.json.JsonArray;
-
 /**
  * Entity class that represents a to-do.
  */
@@ -11,14 +9,14 @@ public class Todo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private String id;
     private String title;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -28,13 +26,6 @@ public class Todo implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public static Todo fromJson(JsonArray json) {
-        Todo todo = new Todo();
-        todo.setId(json.getLong(0));
-        todo.setTitle(json.getString(1));
-        return todo;
     }
 
 }
