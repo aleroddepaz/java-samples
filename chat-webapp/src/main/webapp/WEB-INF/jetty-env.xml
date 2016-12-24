@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+<Configure id="webAppCtx" class="org.eclipse.jetty.webapp.WebAppContext">
+
+  <!-- Enable internal classloading and bind BeanManager to JNDI -->
+  <!-- See http://docs.jboss.org/weld/reference/latest/en-US/html/environments.html#_jetty -->
+  <New class="org.eclipse.jetty.plus.jndi.Resource">
+    <Arg>
+      <Ref refid="webAppCtx" />
+    </Arg>
+    <Arg>BeanManager</Arg>
+    <Arg>
+      <New class="javax.naming.Reference">
+        <Arg>javax.enterprise.inject.spi.BeanManager</Arg>
+        <Arg>org.jboss.weld.resources.ManagerObjectFactory</Arg>
+        <Arg />
+      </New>
+    </Arg>
+  </New>
+
+  <!-- Configure JDBC datasource -->
+  <!-- See http://www.eclipse.org/jetty/documentation/current/jndi-configuration.html -->
+  <New id="chatDataSource" class="org.eclipse.jetty.plus.jndi.Resource">
+    <Arg>jdbc/chatDataSource</Arg>
+    <Arg>
+      <New class="org.apache.derby.jdbc.EmbeddedDataSource">
+        <Set name="databaseName">memory:chatdatabase</Set>
+        <Set name="createDatabase">create</Set>
+      </New>
+    </Arg>
+  </New>
+
+  <!-- Configure a datasource-based login service -->
+  <!-- See https://www.eclipse.org/jetty/documentation/current/configuring-security-authentication.html -->
+  <Get name="securityHandler">
+    <Set name="loginService">
+      <New class="org.eclipse.jetty.plus.security.DataSourceLoginService">
+        <Set name="name">ChatRealm</Set>
+        <Set name="jndiName">jdbc/chatDataSource</Set>
+
+        <!-- Users table -->
+        <Set name="userTableName">USERS</Set>
+        <Set name="userTableKey">ID</Set>
+        <Set name="userTableUserField">USERNAME</Set>
+        <Set name="userTablePasswordField">PASSWORD</Set>
+
+        <!-- Roles table -->
+        <Set name="roleTableName">ROLES</Set>
+        <Set name="roleTableKey">ID</Set>
+        <Set name="roleTableRoleField">NAME</Set>
+
+        <!-- Users/Roles table -->
+        <Set name="userRoleTableName">USERS_ROLES</Set>
+        <Set name="userRoleTableUserKey">USER_ID</Set>
+        <Set name="userRoleTableRoleKey">ROLE_ID</Set>
+      </New>
+    </Set>
+  </Get>
+
+</Configure>

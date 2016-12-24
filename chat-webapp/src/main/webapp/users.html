@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Chat webapp</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="static/styles/main.css">
+</head>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Password</th>
+      </tr>
+    </thead>
+    <tbody id="users-table"></tbody>
+  </table>
+  <form id="form-create-user">
+    <div>
+      <label for="username">Username:</label>
+      <input id="username" name="username"/>
+    </div>
+    <div>
+      <label for="password">Password:</label>
+      <input id="password" name="password" type="password"/>
+    </div>
+    <div>
+      <label for="confirm-password">Confirm password:</label>
+      <input id="confirm-password" type="password"/>
+    </div>
+    <div>
+      <button type="submit">Create user</button>
+    </div>
+  </form>
+  <script src="static/app/users.js"></script>
+</body>

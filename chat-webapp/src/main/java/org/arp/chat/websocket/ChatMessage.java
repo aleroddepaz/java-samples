@@ -1,4 +1,4 @@
-package org.arp.chat;
+package org.arp.chat.websocket;
 
 import java.io.Serializable;
 import java.util.Date;
