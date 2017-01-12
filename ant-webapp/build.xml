@@ -6,15 +6,15 @@
 		<fileset dir="antlibs" includes="*.jar"/>
 	</path>
 	<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="antlibs.path" />
-	<taskdef resource="org/sonar/ant/antlib.xml" uri="antlib:org.sonar.ant" classpathref="antlibs.path" />
 	<taskdef name="junit" classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask" classpathref="antlibs.path" />
 
-	<!-- Source directories -->
+	<!-- Source properties -->	
+	<property name="encoding" value="UTF-8" />
 	<property name="main.src.dir" value="src/main/java" />
 	<property name="test.src.dir" value="src/test/java" />
 	<property name="webapp.dir" value="src/main/webapp" />
 
-	<!-- Build directories -->
+	<!-- Build properties -->
 	<property name="build.dir" value="target" />
 	<property name="main.build.dir" value="${build.dir}/main" />
 	<property name="test.build.dir" value="${build.dir}/test" />
@@ -29,18 +29,18 @@
 		<ivy:cachepath pathid="test.path" conf="test" />
 	</target>
 
-	<target name="compile" depends="resolve" description="compile the sources">
+	<target name="compile" depends="resolve" description="compile the source files">
 		<delete dir="${build.dir}" />
 		<mkdir dir="${main.build.dir}" />
-		<javac srcdir="${main.src.dir}" destdir="${main.build.dir}" includeantruntime="false">
+		<javac srcdir="${main.src.dir}" destdir="${main.build.dir}" includeantruntime="false" encoding="${encoding}">
 			<classpath refid="runtime.path" />
 		</javac>
 	</target>
 
-	<target name="test" depends="compile" description="run the tests">
+	<target name="test" depends="compile" description="compile test classes and run unit tests">
 		<mkdir dir="${test.build.dir}" />
 		<mkdir dir="${junit.report.dir}" />
-		<javac srcdir="${test.src.dir}" destdir="${test.build.dir}" includeantruntime="false">
+		<javac srcdir="${test.src.dir}" destdir="${test.build.dir}" includeantruntime="false" encoding="${encoding}">
 			<classpath refid="test.path" />
 			<classpath location="${main.build.dir}" />
 		</javac>
@@ -74,17 +74,26 @@
 	</target>
 
 	<target name="sonar" depends="test" description="run the sonar analysis">
+		<!-- See http://docs.sonarqube.org/display/SONAR/Analysis+Parameters -->
 		<property name="sonar.projectKey" value="${ivy.organisation}:${ivy.module}" />
 		<property name="sonar.projectName" value="${ant.project.name}" />
 		<property name="sonar.projectVersion" value="${ivy.revision}" />
 		<property name="sonar.sources" value="${main.src.dir}" />
 		<property name="sonar.tests" value="${test.src.dir}" />
 		<property name="sonar.language" value="java" />
-		<property name="sonar.sourceEncoding" value="UTF-8" />
+		<property name="sonar.sourceEncoding" value="${encoding}" />
+		
+		<!-- See http://docs.sonarqube.org/display/PLUG/Java+Plugin+and+Bytecode -->
 		<property name="sonar.java.binaries" value="${main.build.dir}" />
 		<property name="sonar.java.test.binaries" value="${test.build.dir}" />
 		<property name="sonar.java.libraries" value="${ivy.lib.dir}" />
+
+		<!-- See http://docs.sonarqube.org/display/PLUG/Code+Coverage+by+Unit+Tests+for+Java+Project -->
 		<property name="sonar.junit.reportsPath" value="${junit.report.dir}" />
+
+		<!-- Defines the target for the SonarQube Scanner and executes the analysis              -->
+		<!-- See http://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Ant -->
+		<taskdef resource="org/sonar/ant/antlib.xml" uri="antlib:org.sonar.ant" classpathref="antlibs.path" />
 		<sonar:sonar />
 	</target>
 
