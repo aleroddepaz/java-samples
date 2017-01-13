@@ -5,8 +5,6 @@
     <path id="antlibs.path">
         <fileset dir="antlibs" includes="*.jar"/>
     </path>
-    <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="antlibs.path" />
-    <taskdef name="junit" classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask" classpathref="antlibs.path" />
 
     <!-- Source properties -->  
     <property name="encoding" value="UTF-8" />
@@ -22,6 +20,7 @@
     <property name="war.name" value="${build.dir}/${ant.project.name}.war" />
 
     <target name="resolve" description="retrieve dependencies with ivy">
+        <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="antlibs.path" />
         <delete dir="${ivy.lib.dir}" />
         <ivy:retrieve />
         <ivy:cachepath pathid="compile.path" conf="compile" />
