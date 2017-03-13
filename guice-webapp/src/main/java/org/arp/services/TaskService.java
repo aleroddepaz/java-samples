@@ -7,7 +7,7 @@ import org.arp.model.Task;
 
 public interface TaskService extends Serializable {
 
-    Task create(String text) throws ServiceException;
+    Task create(String text);
 
     List<Task> findAll();
 

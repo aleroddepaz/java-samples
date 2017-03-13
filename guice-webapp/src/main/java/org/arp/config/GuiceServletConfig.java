@@ -1,7 +1,10 @@
-package org.arp.modules;
+package org.arp.config;
 
+import org.arp.services.TaskService;
+import org.arp.services.TaskServiceImpl;
 import org.arp.servlets.HomeServlet;
 
+import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.persist.PersistFilter;
@@ -11,20 +14,24 @@ import com.google.inject.servlet.ServletModule;
 
 public class GuiceServletConfig extends GuiceServletContextListener {
 
-    private static final String PERSISTENCE_UNIT_NAME = "GuiceWebappPu";
-    
     @Override
     protected Injector getInjector() {
-        ServicesModule servicesModule = new ServicesModule();
-        return Guice.createInjector(servicesModule, new ServletModule() {
+        return Guice.createInjector(new ServicesModule(), new ServletModule() {
             @Override
             protected void configureServlets() {
-                install(new JpaPersistModule(PERSISTENCE_UNIT_NAME));
-                filter("/*").through(PersistFilter.class);
+                install(new JpaPersistModule("GuiceWebappPu"));
 
+                filter("/*").through(PersistFilter.class);
                 serve("/").with(HomeServlet.class);
             }
         });
+    }
+
+    private static final class ServicesModule extends AbstractModule {
+        @Override
+        protected void configure() {
+            bind(TaskService.class).to(TaskServiceImpl.class);
+        }
     }
 
 }

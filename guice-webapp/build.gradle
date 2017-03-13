@@ -1,0 +1,37 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'eclipse'
+
+// See http://akhikhl.github.io/gretty-doc/Getting-started.html
+apply plugin: 'org.akhikhl.gretty'
+
+group = 'org.arp.examples'
+version = '1.1-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'com.google.inject.extensions:guice-servlet:4.1.0'
+    compile 'com.google.inject.extensions:guice-persist:4.1.0'
+
+    compile 'org.hibernate:hibernate-core:5.2.8.Final'
+    compile 'org.hibernate:hibernate-validator:5.4.0.Final'
+    compile 'org.apache.commons:commons-lang3:3.5'
+
+    runtime 'com.h2database:h2:1.4.191'
+    providedCompile 'org.glassfish.web:jstl-impl:1.2'
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'org.akhikhl.gretty:gretty:+'
+    }
+}
