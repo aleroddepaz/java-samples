@@ -9,14 +9,14 @@ import com.google.inject.servlet.ServletModule;
 
 public class GuiceServletConfig extends GuiceServletContextListener {
 
-	@Override
-	protected Injector getInjector() {
-		return Guice.createInjector(new ServletModule() {
-			@Override
-			protected void configureServlets() {
-				serve("/").with(HomeServlet.class);
-			}
-		}, new DinamicaModule());
-	}
+    @Override
+    protected Injector getInjector() {
+        return Guice.createInjector(new ServletModule() {
+            @Override
+            protected void configureServlets() {
+                serve("/").with(HomeServlet.class);
+            }
+        }, new DinamicaModule());
+    }
 
 }

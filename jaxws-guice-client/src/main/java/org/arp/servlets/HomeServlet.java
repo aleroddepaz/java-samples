@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.Holder;
+import javax.xml.ws.WebServiceException;
 
 import org.tempuri.ArrayOfPasoParada;
 import org.tempuri.DinamicaSoap;
@@ -20,12 +21,13 @@ import com.google.inject.Singleton;
 public class HomeServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-    static final String INDEX_VIEW = "/WEB-INF/index.jsp";
+
+    private static final String INDEX_VIEW = "/WEB-INF/index.jsp";
 
     private final DinamicaSoap port;
 
     @Inject
-    public HomeServlet(DinamicaSoap port) {
+    public HomeServlet(final DinamicaSoap port) {
         this.port = port;
     }
 
@@ -44,7 +46,7 @@ public class HomeServlet extends HttpServlet {
             port.getPasoParada(linea, parada, status, result);
             List<PasoParada> pasosParada = result.value.getPasoParada();
             req.setAttribute("pasosParada", pasosParada);
-        } catch(RuntimeException e) {
+        } catch (WebServiceException e) {
             log("Error al llamar al servicio 'getPasoParada'", e);
             req.setAttribute("error", e.getLocalizedMessage());
         }

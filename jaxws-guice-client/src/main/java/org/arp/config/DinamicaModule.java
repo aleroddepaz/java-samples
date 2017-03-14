@@ -17,26 +17,24 @@ import com.google.inject.name.Names;
 
 public class DinamicaModule extends AbstractModule {
 
-	private final Dinamica service = new Dinamica();
+    @Provides
+    DinamicaSoap getDinamicaSoapClient(@Named("dinamica.endpoint") String endpoint) {
+        DinamicaSoap port = new Dinamica().getDinamicaSoap();
+        BindingProvider bp = (BindingProvider) port;
+        bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpoint);
+        return port;
+    }
 
-	@Provides
-	DinamicaSoap getDinamicaSoapClient(@Named("dinamica.endpoint") String endpoint) {
-		DinamicaSoap port = service.getDinamicaSoap();
-		BindingProvider bp = (BindingProvider) port;
-		bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpoint);
-		return port;
-	}
-
-	@Override
-	protected void configure() {
-		String configLocation = System.getProperty("configLocation", "conf/app.properties");
-		Properties prop = new Properties();
-		try (InputStream is = new FileInputStream(configLocation)) {
-			prop.load(is);
-			Names.bindProperties(binder(), prop);
-		} catch (IOException e) {
-			this.addError("No se encontró el fichero de configuración", e);
-		}
-	}
+    @Override
+    protected void configure() {
+        String configLocation = System.getProperty("configLocation", "conf/app.properties");
+        Properties prop = new Properties();
+        try (InputStream is = new FileInputStream(configLocation)) {
+            prop.load(is);
+            Names.bindProperties(binder(), prop);
+        } catch (IOException e) {
+            this.addError(e);
+        }
+    }
 
 }
