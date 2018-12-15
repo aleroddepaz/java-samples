@@ -37,7 +37,7 @@ public class AuthorController {
 
     @RequestMapping(method = GET, value = "/{id}")
     public AuthorResource findAuthor(@PathVariable("id") Long id) {
-        Author author = authorRepository.findOne(id);
+        Author author = authorRepository.getOne(id);
         if (author == null) {
             throw new ResourceNotFoundException();
         }

@@ -46,7 +46,7 @@ public class PublisherController {
 
     @RequestMapping(method = GET, value = "/{id}")
     public PublisherResource findPublisher(@PathVariable("id") Long id) {
-        Publisher publisher = publisherRepository.findOne(id);
+        Publisher publisher = publisherRepository.getOne(id);
         if (publisher == null) {
             throw new ResourceNotFoundException();
         }
@@ -62,7 +62,7 @@ public class PublisherController {
 
     @RequestMapping(method = GET, value = "/{id}/books")
     public List<BookResource> getPublisherBook(@PathVariable("id") Long id) {
-        Publisher publisher = publisherRepository.findOne(id);
+        Publisher publisher = publisherRepository.getOne(id);
         if (publisher == null) {
             throw new ResourceNotFoundException();
         }
@@ -77,7 +77,7 @@ public class PublisherController {
     @RequestMapping(method = POST, value = "/{id}/books")
     @Transactional
     public BookResource createPublisherBook(@PathVariable("id") Long id, @RequestBody BookResource resource) {
-        Publisher publisher = publisherRepository.findOne(id);
+        Publisher publisher = publisherRepository.getOne(id);
         if (publisher == null) {
             throw new ResourceNotFoundException();
         }
@@ -90,7 +90,7 @@ public class PublisherController {
     @RequestMapping(method = PUT, value = "/{id}")
     @Transactional
     public PublisherResource updateBook(@PathVariable("id") Long id, @RequestBody PublisherResource resource) {
-        Publisher publisher = publisherRepository.findOne(id);
+        Publisher publisher = publisherRepository.getOne(id);
         if (publisher == null) {
             throw new ResourceNotFoundException();
         }

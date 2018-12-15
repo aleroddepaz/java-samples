@@ -15,11 +15,9 @@ public class ApiController {
     @RequestMapping(method = GET)
     public ApiResource getEntryPoint() {
         ApiResource resource = new ApiResource();
-
         resource.add(linkTo(methodOn(BookController.class).findAllBooks()).withRel("books"));
         resource.add(linkTo(methodOn(PublisherController.class).findAllPublishers()).withRel("publishers"));
         resource.add(linkTo(methodOn(AuthorController.class).findAllAuthors()).withRel("authors"));
-
         return resource;
     }
 

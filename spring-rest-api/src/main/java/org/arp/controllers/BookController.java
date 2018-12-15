@@ -46,7 +46,7 @@ public class BookController {
 
     @RequestMapping(method = GET, value = "/{id}")
     public BookResource findBook(@PathVariable("id") Long id) {
-        Book book = bookRepository.findOne(id);
+        Book book = bookRepository.getOne(id);
         if (book == null) {
             throw new ResourceNotFoundException();
         }
@@ -56,7 +56,7 @@ public class BookController {
     @RequestMapping(method = PUT, value = "/{id}")
     @Transactional
     public BookResource updateBook(@PathVariable("id") Long id, @RequestBody BookResource resource) {
-        Book book = bookRepository.findOne(id);
+        Book book = bookRepository.getOne(id);
         if (book == null) {
             throw new ResourceNotFoundException();
         }
@@ -69,7 +69,7 @@ public class BookController {
     @RequestMapping(method = POST, value = "/{id}/reviews")
     @Transactional
     public ReviewResource createReview(@PathVariable("id") Long id, @RequestBody ReviewResource resource) {
-        Book book = bookRepository.findOne(id);
+        Book book = bookRepository.getOne(id);
         if (book == null) {
             throw new ResourceNotFoundException();
         }
@@ -81,7 +81,7 @@ public class BookController {
 
     @RequestMapping(method = GET, value = "/{id}/reviews")
     public List<ReviewResource> findAllReviews(@PathVariable("id") Long id) {
-        Book book = bookRepository.findOne(id);
+        Book book = bookRepository.getOne(id);
         if (book == null) {
             throw new ResourceNotFoundException();
         }
@@ -95,7 +95,7 @@ public class BookController {
 
     @RequestMapping(method = GET, value = "/{id}/reviews/{reviewId}")
     public ReviewResource findReview(@PathVariable("id") Long id, @PathVariable("reviewId") Long reviewId) {
-        Review review = reviewRepository.findOne(reviewId);
+        Review review = reviewRepository.getOne(reviewId);
         if (review == null || review.getBook().getId() != id) {
             throw new ResourceNotFoundException();
         }
