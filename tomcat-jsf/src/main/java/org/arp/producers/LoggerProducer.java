@@ -21,7 +21,7 @@ public class LoggerProducer implements Serializable {
     @Produces
     public Logger createLogger(InjectionPoint ip) {
         Class<?> clazz = ip.getMember().getDeclaringClass();
-        return cache.computeIfAbsent(clazz, (key) -> LoggerFactory.getLogger(key));
+        return cache.computeIfAbsent(clazz, LoggerFactory::getLogger);
     }
 
 }

@@ -49,7 +49,7 @@ public class Category implements Serializable {
     private String description;
 
     @Column(name = "CREATION_DATE")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
     public Long getId() {

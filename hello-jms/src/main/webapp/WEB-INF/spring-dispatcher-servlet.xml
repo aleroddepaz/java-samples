@@ -1,0 +1,33 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:mvc="http://www.springframework.org/schema/mvc"
+  xmlns:context="http://www.springframework.org/schema/context" xmlns:jms="http://www.springframework.org/schema/jms"
+  xmlns:jee="http://www.springframework.org/schema/jee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd
+    http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
+
+  <mvc:annotation-driven />
+  <jms:annotation-driven />
+  <context:component-scan base-package="org.arp" />
+
+  <bean id="jmsListenerContainerFactory" class="org.springframework.jms.config.DefaultJmsListenerContainerFactory">
+    <property name="connectionFactory" ref="connectionFactory" />
+    <property name="messageConverter" ref="messageConverter" />
+  </bean>
+
+  <bean class="org.springframework.jms.core.JmsTemplate">
+    <property name="connectionFactory" ref="connectionFactory" />
+    <property name="messageConverter" ref="messageConverter" />
+  </bean>
+
+  <bean id="messageConverter" class="org.springframework.jms.support.converter.MappingJackson2MessageConverter">
+    <property name="targetType" value="TEXT" />
+    <property name="typeIdPropertyName" value="_type" />
+  </bean>
+  
+  <bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+    <property name="brokerURL" value="vm://localhost?broker.persistent=false" />
+  </bean>
+
+</beans>

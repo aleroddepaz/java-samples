@@ -6,9 +6,9 @@
     </encoder>
   </appender>
 
-  <root level="warn">
+  <root level="WARN">
     <appender-ref ref="STDOUT" />
   </root>
 
-  <logger name="org.arp" level="trace" />
+  <logger name="org.arp" level="DEBUG" />
 </configuration>

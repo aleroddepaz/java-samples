@@ -7,7 +7,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.RollbackException;
-import javax.persistence.TypedQuery;
 
 import org.arp.domain.Category;
 import org.slf4j.Logger;
@@ -23,32 +22,35 @@ public class CategoriesService implements Serializable {
     @Inject
     Logger logger;
 
-    public boolean create(final Category category) {
-        boolean ok = true;
+    public boolean create(Category category) {
         try {
             em.getTransaction().begin();
             em.persist(category);
             em.getTransaction().commit();
-            logger.debug("Created a new category: {}", category);
+            logger.debug("Created category: {}", category);
         } catch (RollbackException e) {
-            logger.error("Error while creating a new category", e);
-            ok = false;
+            logger.error("Error while creating a category", e);
+            return false;
         }
-        return ok;
+        return true;
+    }
+
+    public boolean delete(Long categoryId) {
+    	try {
+	    	em.getTransaction().begin();
+	    	Category category = em.find(Category.class, categoryId);
+	    	em.remove(category);
+	    	em.getTransaction().commit();
+	    	logger.debug("Deleted category: {}", category);
+    	} catch (RollbackException e) {
+    		logger.error("Error while deleting a category", e);
+            return false;
+    	}
+    	return true;
     }
 
     public List<Category> findRootCategories() {
-        TypedQuery<Category> query = em.createNamedQuery(Category.FIND_ROOT, Category.class);
-        List<Category> categories = query.getResultList();
-
-        logger.debug("{} root categories found", categories.size());
-        return categories;
-    }
-
-    public List<Category> findChildCategories(Long parentId) {
-        TypedQuery<Category> query = em.createNamedQuery(Category.FIND_CHILDREN, Category.class);
-        query.setParameter("parentId", parentId);
-        return query.getResultList();
+        return em.createNamedQuery(Category.FIND_ROOT, Category.class).getResultList();
     }
 
 }

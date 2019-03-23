@@ -16,52 +16,38 @@
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
-  <repositories>
-    <repository>
-      <id>prime-repo</id>
-      <name>PrimeFaces Maven Repository</name>
-      <url>http://repository.primefaces.org</url>
-      <layout>default</layout>
-    </repository>
-  </repositories>
-
   <dependencies>
+    <!-- Logging -->
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
       <version>1.1.6</version>
     </dependency>
 
-    <!-- JSF Implementation + Primefaces -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jul-to-slf4j</artifactId>
+      <version>1.7.26</version>
+    </dependency>
+
+    <!-- JavaServer Faces 2.3 Implementation -->
     <dependency>
       <groupId>org.glassfish</groupId>
       <artifactId>javax.faces</artifactId>
-      <version>2.2.13</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.glassfish.web</groupId>
-      <artifactId>el-impl</artifactId>
-      <version>2.2</version>
+      <version>2.3.4</version>
     </dependency>
 
     <dependency>
       <groupId>org.primefaces</groupId>
       <artifactId>primefaces</artifactId>
-      <version>5.2</version>
+      <version>6.2</version>
     </dependency>
 
-    <dependency>
-      <groupId>org.primefaces.themes</groupId>
-      <artifactId>bootstrap</artifactId>
-      <version>1.0.10</version>
-    </dependency>
-
-    <!-- CDI Implementation (Uber JAR) -->
+    <!-- CDI 2.0 Implementation -->
     <dependency>
       <groupId>org.jboss.weld.servlet</groupId>
-      <artifactId>weld-servlet</artifactId>
-      <version>2.3.0.Final</version>
+      <artifactId>weld-servlet-shaded</artifactId>
+      <version>3.1.0.Final</version>
     </dependency>
 
     <!-- Bean Validation Implementation -->
@@ -71,17 +57,18 @@
       <version>5.2.2.Final</version>
     </dependency>
 
-    <!-- JPA Implementation + JDBC Driver -->
+    <!-- JPA 2.1 Implementation -->
     <dependency>
       <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-entitymanager</artifactId>
-      <version>5.0.2.Final</version>
+      <artifactId>hibernate-core</artifactId>
+      <version>5.2.18.Final</version>
     </dependency>
 
     <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
       <version>1.4.191</version>
+      <scope>runtime</scope>
     </dependency>
   </dependencies>
 

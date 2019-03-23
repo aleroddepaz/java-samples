@@ -8,9 +8,6 @@
     <link rel="shortcut icon" href="#{request.contextPath}/favicon.ico" />
 </h:head>
 <h:body>
-    <f:metadata>
-        <f:event type="preRenderView" listener="#{categoriesCtrl.loadCategories}" />
-    </f:metadata>
     <h:form>
         <p:panel header="New category" toggleable="true">
             <h:panelGrid columns="2" cellpadding="5">
@@ -26,21 +23,26 @@
         </p:panel>
     </h:form>
 
-    <p:dataTable id="categories" var="category" value="#{categoriesCtrl.categories}">
-        <p:column headerText="ID" width="15%">
-            <h:outputText value="#{category.id}" />
-        </p:column>
-        <p:column headerText="Name" width="20%">
-            <h:outputText value="#{category.name}" />
-        </p:column>
-        <p:column headerText="Description" width="50%">
-            <h:outputText value="#{category.description}" />
-        </p:column>
-        <p:column headerText="Created at" width="15%">
-            <h:outputText value="#{category.creationDate}">
-                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
-            </h:outputText>
-        </p:column>
-    </p:dataTable>
+	<h:form>
+	    <p:dataTable id="categories" var="category" value="#{categoriesCtrl.categories}">
+	        <p:column headerText="ID" width="10%">
+	            <h:outputText value="#{category.id}" />
+	        </p:column>
+	        <p:column headerText="Name" width="20%">
+	            <h:outputText value="#{category.name}" />
+	        </p:column>
+	        <p:column headerText="Description" width="40%">
+	            <h:outputText value="#{category.description}" />
+	        </p:column>
+	        <p:column headerText="Created at" width="20%">
+	            <h:outputText value="#{category.creationDate}">
+	                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+	            </h:outputText>
+	        </p:column>
+	        <p:column width="10%">
+	            <p:commandButton value="Delete" action="#{categoriesCtrl.delete(category.id)}" ajax="false" />
+		    </p:column>
+	    </p:dataTable>
+	</h:form>
 </h:body>
 </html>
