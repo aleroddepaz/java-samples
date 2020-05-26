@@ -20,7 +20,7 @@ public class GenericController {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public void handleGenericException(Exception e) {
-        LOGGER.error("Error genérico", e);
+        LOGGER.error("An exception occurred", e);
     }
 
     @ExceptionHandler(HttpMediaTypeException.class)
@@ -38,7 +38,7 @@ public class GenericController {
     @ExceptionHandler(HttpMessageConversionException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public void handleJsonProcessingException() {
-        // Nothing to do
+    	// Nothing to do
     }
 
     @ExceptionHandler(ConstraintViolationException.class)

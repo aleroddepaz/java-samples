@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "AUTHORS")
 public class Author implements Serializable {
@@ -26,10 +28,16 @@ public class Author implements Serializable {
 
     @NotNull
     @Size(min = 2, max = 64)
-    @Column(name = "NAME")
-    private String name;
+    @Column(name = "FIRST_NAME")
+    private String firstName;
+
+    @NotNull
+    @Size(min = 2, max = 64)
+    @Column(name = "LAST_NAME")
+    private String lastName;
 
     @ManyToMany
+    @JsonIgnore
     private List<Book> books;
 
     public Long getId() {
@@ -40,11 +48,28 @@ public class Author implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
+	public String getFirstName() {
+		return firstName;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public List<Book> getBooks() {
+		return books;
+	}
+
+	public void setBooks(List<Book> books) {
+		this.books = books;
+	}
+
 }

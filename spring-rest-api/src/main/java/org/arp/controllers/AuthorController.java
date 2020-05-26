@@ -1,18 +1,18 @@
 package org.arp.controllers;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.arp.model.Author;
 import org.arp.repositories.AuthorRepository;
-import org.arp.resources.AuthorResource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,28 +25,23 @@ public class AuthorController {
     @Autowired
     AuthorRepository authorRepository;
 
-    @RequestMapping(method = GET)
-    public List<AuthorResource> findAllAuthors() {
-        List<Author> authors = authorRepository.findAll();
-        List<AuthorResource> result = new ArrayList<AuthorResource>(authors.size());
-        for (Author author : authors) {
-            result.add(convertToResource(author));
-        }
-        return null;
+    @GetMapping
+    public List<EntityModel<Author>> findAllAuthors() {
+    	return authorRepository.findAll().stream()
+    			.map(this::convertToResource)
+    			.collect(Collectors.toList());
     }
 
-    @RequestMapping(method = GET, value = "/{id}")
-    public AuthorResource findAuthor(@PathVariable("id") Long id) {
-        Author author = authorRepository.getOne(id);
-        if (author == null) {
-            throw new ResourceNotFoundException();
-        }
-        return convertToResource(author);
+    @GetMapping("/{id}")
+    public EntityModel<Author> findAuthor(@PathVariable("id") Long id) {
+    	return authorRepository.findById(id)
+    			.map(this::convertToResource)
+    			.orElseThrow(ResourceNotFoundException::new);
     }
 
-    public static AuthorResource convertToResource(Author author) {
-        Link selfRel = linkTo(methodOn(AuthorController.class).findAuthor(author.getId())).withSelfRel();
-        return new AuthorResource(author, selfRel);
+    public EntityModel<Author> convertToResource(Author author) {
+    	Link selfRel = linkTo(methodOn(AuthorController.class).findAuthor(author.getId())).withSelfRel();
+    	return EntityModel.of(author, selfRel);
     }
 
 }
