@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <fragment
+        android:id="@+id/productsListFragment"
+        android:name="com.acme.shoppingapp.fragments.ProductsListFragment"
+        android:layout_width="350dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal" />
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="com.acme.shoppingapp.fragments.ShoppingCartFragment"
+        android:id="@+id/shoppingCartFragment" />
+
+</LinearLayout>

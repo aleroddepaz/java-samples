@@ -1,0 +1,12 @@
+{
+  "name": "enterprise-todo",
+  "authors": [
+    "aleroddepaz"
+  ],
+  "dependencies": {
+    "backbone": "^1.2.3",
+    "requirejs": "^2.1.22",
+    "domReady": "^2.0.1",
+    "jquery": "^2.2.0"
+  }
+}

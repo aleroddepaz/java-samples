@@ -1,0 +1,19 @@
+<!DOCTYPE xml>
+<scxml version="0.9" initialstate="open" xmlns="http://www.w3.org/2005/07/scxml">
+  <!-- TODO: Implement role checks -->
+  <state id="open">
+    <transition event="assign" target="assigned" />
+  </state>
+
+  <state id="assigned">
+    <transition event="reassign" target="assigned" />
+    <transition event="requestInfo" target="pending" />
+    <transition event="close" target="closed" />
+  </state>
+
+  <state id="pending">
+    <transition event="addInfo" target="assigned" />
+  </state>
+
+  <final id="closed" />
+</scxml>

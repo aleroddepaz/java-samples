@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1" />
+<title>My Enterprise TO-DO app</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+<link rel="stylesheet" href="css/unsemantic-grid-responsive.css">
+<link rel="stylesheet" href="css/main.css">
+<link rel="icon" href="favicon.ico">
+<script data-main="main" src="vendor/requirejs/require.js"></script>
+</head>
+<body>
+	<div class="grid-container">
+		<form id="todo-form" autocomplete="off" class="grid-30 mobile-grid-100 grid-parent">
+			<input type="text" id="new-todo" maxlength="60" class="grid-70" />
+			<button class="grid-20 success">Add</button>
+		</form>
+		<table id="todo-table" class="grid-70 mobile-grid-100">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Name</th>
+					<th />
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</div>
+	<script type="text/template" id="table-tpl">
+    <% _.each(todos, function(todo){ %>
+        <tr>
+            <td><%= todo.id %></td>
+            <td><%= todo.text %></td>
+            <td><button data-id="<%= todo.id %>" class="remove danger">X</button>
+        </tr>           
+    <% }); %>
+	</script>
+</body>
+</html>
