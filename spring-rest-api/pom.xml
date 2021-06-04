@@ -14,7 +14,7 @@
     <spring.data.version>2.3.0.RELEASE</spring.data.version>
     <spring.hateoas.version>1.1.0.RELEASE</spring.hateoas.version>
     <hibernate.version>5.4.16.Final</hibernate.version>
-    <validator.version>6.1.0.Final</validator.version>
+    <validator.version>6.1.5.Final</validator.version>
     <jackson.version>2.11.0</jackson.version>
     <logback.version>1.2.3</logback.version>
     <jetty.version>9.4.29.v20200521</jetty.version>
